@@ -10,7 +10,7 @@ const RentalCard = () => {
           src='http://via.placeholder.com/350x250'
           alt=''></Card.Img>
         <div className='card-block'>
-          <Card.Subtitle className='card-subtitle mb-2 text-muted'>
+          <Card.Subtitle className='card-subtitle mb-2'>
             Whole Apartment &#183; New York
           </Card.Subtitle>
           <Card.Title className='card-title'>Some nice apartment</Card.Title>
