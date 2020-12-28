@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import Header from './shared/Header';
 import { Container } from 'react-bootstrap';
 import RentalList from './components/rental/RentalList';
@@ -10,8 +10,15 @@ const App = () => {
     <BrowserRouter>
       <Header />
       <Container>
-        <Route exact path='/' component={RentalList} />
-        <Route exact path='/test' component={RentalDetail} />
+        <Route
+          exact
+          path='/'
+          render={() => {
+            return <Redirect to='/rentals' />;
+          }}
+        />
+        <Route exact path='/rentals' component={RentalList} />
+        <Route exact path='/rentals/:id' component={RentalDetail} />
       </Container>
     </BrowserRouter>
   );
