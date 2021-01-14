@@ -1,63 +1,9 @@
-// import { rentalItems } from '../data';
-import { FETCH_RENTALS, FETCH_RENTAL_BY_ID } from '../actions/types';
-
-// const rents = rentalItems();
-// console.log(` We are ${rents}`);
-
-const rentals = [
-  {
-    id: 1,
-    title: 'Central Apartment',
-    city: 'New York',
-    street: 'Times Sqaure',
-    category: 'apartment',
-    image: 'http://via.placeholder.com/350x250',
-    bedrooms: 3,
-    description: 'Very nice apartment',
-    dailyRate: 34,
-    shared: false,
-    createdAt: '24/12/2017'
-  },
-  {
-    id: 2,
-    title: 'Central Apartment 2',
-    city: 'San Francisco',
-    street: 'Main street',
-    category: 'condo',
-    image: 'http://via.placeholder.com/350x250',
-    bedrooms: 2,
-    description: 'Very nice apartment',
-    dailyRate: 12,
-    shared: true,
-    createdAt: '24/12/2017'
-  },
-  {
-    id: 3,
-    title: 'Central Apartment 3',
-    city: 'Bratislava',
-    street: 'Hlavna',
-    category: 'condo',
-    image: 'http://via.placeholder.com/350x250',
-    bedrooms: 2,
-    description: 'Very nice apartment',
-    dailyRate: 334,
-    shared: true,
-    createdAt: '24/12/2017'
-  },
-  {
-    id: 4,
-    title: 'Central Apartment 4',
-    city: 'Berlin',
-    street: 'Haupt strasse',
-    category: 'house',
-    image: 'http://via.placeholder.com/350x250',
-    bedrooms: 9,
-    description: 'Very nice apartment',
-    dailyRate: 33,
-    shared: true,
-    createdAt: '24/12/2017'
-  }
-];
+import {
+  FETCH_RENTALS,
+  FETCH_RENTAL_BY_ID,
+  FETCH_RENTAL_BY_ID_SUCCESS
+} from '../actions/types';
+import { rentalItems } from '../data';
 
 export const fetchRentals = rentals => {
   return {
@@ -66,9 +12,18 @@ export const fetchRentals = rentals => {
   };
 };
 
-export const fetchRentalById = selectedItem => {
+export const fetchRentalById = rentalId => dispatch => {
+  setTimeout(() => {
+    const rental = rentalItems().find(
+      rental => rental.id.toString() === rentalId
+    );
+    dispatch(fetchRentalByIdSuccess(rental));
+  }, 2000);
+};
+
+const fetchRentalByIdSuccess = rental => {
   return {
-    type: FETCH_RENTAL_BY_ID,
-    payload: selectedItem
+    type: FETCH_RENTAL_BY_ID_SUCCESS,
+    payload: rental
   };
 };

@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchRentalById } from '../../actions';
-import { rentalItems } from '../../data';
-
-const rentals = rentalItems();
 
 class RentalDetail extends Component {
   componentDidMount() {
     const rentalId = this.props.match.params.id;
-    const selectedRental = rentals.find(rental => rental.id == rentalId);
-    this.props.fetchRentalById(selectedRental);
+
+    this.props.fetchRentalById(rentalId);
   }
   render() {
-    console.log(this.props);
-    return (
-      <div>
-        <h1>I am detail component {this.props.rental.id}</h1>
-      </div>
-    );
+    const rental = this.props.rental;
+    if (rental.id) {
+      return (
+        <div>
+          <h1>{rental.title}</h1>
+          <h1>{rental.city}</h1>
+          <h1>{rental.description}</h1>
+          <h1>{`$${rental.dailyRate}`}</h1>
+        </div>
+      );
+    } else {
+      return <h1>Loading...</h1>;
+    }
   }
 }
 
