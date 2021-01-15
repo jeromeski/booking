@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const config = require('./config/dev');
-const Rental = require('./models/rental');
+const FakeDb = require('./fake-db');
 
 mongoose
   .connect(config.DB_URI, {
@@ -11,7 +11,11 @@ mongoose
     useUnifiedTopology: true
   })
   .catch(err => console.log(err))
-  .then(res => console.log('#### mongoDB is connected ####'));
+  .then(res => console.log('#### mongoDB is connected ####'))
+  .then(() => {
+    const fakedb = new FakeDb();
+    fakedb.seeDb();
+  });
 
 const app = express();
 
