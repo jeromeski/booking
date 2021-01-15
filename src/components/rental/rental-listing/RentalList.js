@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import RentalCard from './RentalCard';
-import { rentalItems } from '../../data';
-import { fetchRentals } from '../../actions/index';
+import RentalCard from '../RentalCard';
+import { rentalItems } from '../../../data';
+import { fetchRentals } from '../../../actions';
 
 class RentalList extends Component {
   componentDidMount() {

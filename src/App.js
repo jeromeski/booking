@@ -2,11 +2,11 @@ import React from 'react';
 import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Header from './shared/Header';
-import thunk from 'redux-thunk';
 import { Container } from 'react-bootstrap';
-import RentalList from './components/rental/RentalList';
-import RentalDetail from './components/rental/RentalDetail';
+
 import { init } from './reducers';
+import RentalList from './components/rental/rental-listing/RentalList';
+import RentalDetail from './components/rental/rental-detail/RentalDetail';
 
 const store = init();
 
