@@ -7,12 +7,15 @@ import {
   Button,
   Nav
 } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <Navbar bg='dark' variant='dark' expand='lg'>
       <Container>
-        <Navbar.Brand href='#'>BookWithMe</Navbar.Brand>
+        <Navbar.Brand as={Link} to='/rentals'>
+          BookWithMe
+        </Navbar.Brand>
         <Form inline>
           <FormControl
             type='text'
