@@ -11,7 +11,7 @@ const RentalCard = props => {
           <Card.Img
             className='card-img-top'
             src={rental.image}
-            alt=''></Card.Img>
+            alt={rental.title}></Card.Img>
           <div className='card-block'>
             <Card.Subtitle className={`mb-2 ${rental.category}`}>
               {rental.shared ? 'shared' : 'whole'} {rental.category} &#183;{' '}

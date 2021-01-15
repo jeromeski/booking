@@ -5,7 +5,7 @@ import Header from './shared/Header';
 import { Container } from 'react-bootstrap';
 
 import { init } from './reducers';
-import RentalList from './components/rental/rental-listing/RentalList';
+import RentalListing from './components/rental/rental-listing/RentalListing';
 import RentalDetail from './components/rental/rental-detail/RentalDetail';
 
 const store = init();
@@ -23,7 +23,7 @@ const App = () => {
               return <Redirect to='/rentals' />;
             }}
           />
-          <Route exact path='/rentals' component={RentalList} />
+          <Route exact path='/rentals' component={RentalListing} />
           <Route exact path='/rentals/:id' component={RentalDetail} />
         </Container>
       </BrowserRouter>
