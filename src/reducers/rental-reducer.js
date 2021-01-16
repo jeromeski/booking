@@ -1,4 +1,4 @@
-import { FETCH_RENTALS } from '../actions/types';
+import { FETCH_RENTALS_SUCCESS } from '../actions/types';
 
 const INIT_STATE = {
   rentals: {
@@ -7,7 +7,7 @@ const INIT_STATE = {
 };
 export const rentalReducer = (state = INIT_STATE.rentals, action) => {
   switch (action.type) {
-    case FETCH_RENTALS: {
+    case FETCH_RENTALS_SUCCESS: {
       return { ...state, data: action.payload };
     }
     default:
