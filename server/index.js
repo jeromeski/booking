@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
+
 const config = require('./config/dev');
 const FakeDb = require('./fake-db');
 const rentalRoutes = require('./routes/rentals');
@@ -11,15 +13,17 @@ mongoose
     useFindAndModify: false,
     useUnifiedTopology: true
   })
-  .catch(err => console.log(err))
+
   .then(res => console.log('#### mongoDB is connected ####'))
   .then(() => {
     const fakedb = new FakeDb();
     fakedb.seeDb();
-  });
+  })
+  .catch(err => console.log(err));
 
 const app = express();
 
+app.use(cors());
 app.use('/api/v1/rentals', rentalRoutes);
 
 app.get('/rentals', (req, res) => {
@@ -31,5 +35,5 @@ app.get('/rentals', (req, res) => {
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
-  console.log('Server Running');
+  console.log(`Server running at ${PORT}`);
 });
