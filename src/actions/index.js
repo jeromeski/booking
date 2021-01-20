@@ -5,18 +5,17 @@ import {
   FETCH_RENTAL_BY_ID_INIT,
   FETCH_RENTAL_BY_ID_SUCCESS
 } from '../actions/types';
-import { rentalItems } from '../data';
+
+const fetchRentalByIdInit = () => {
+  return {
+    type: FETCH_RENTAL_BY_ID_INIT
+  };
+};
 
 const fetchRentalByIdSuccess = rental => {
   return {
     type: FETCH_RENTAL_BY_ID_SUCCESS,
     payload: rental
-  };
-};
-
-const fetchRentalByIdInit = () => {
-  return {
-    type: FETCH_RENTAL_BY_ID_INIT
   };
 };
 
@@ -29,16 +28,14 @@ const fetchRentalSuccess = rentals => {
 
 export const fetchRentals = () => dispatch => {
   axios.get('/api/v1/rentals').then(rentals => {
-    debugger;
     dispatch(fetchRentalSuccess(rentals.data));
   });
 };
 
 export const fetchRentalById = rentalId => dispatch => {
-  return dispatch => {
-    dispatch(fetchRentalByIdInit());
-    axios.get('/api/v1/rentals').then(rentals => {
-      dispatch(fetchRentalByIdSuccess(rentals));
-    });
-  };
+  dispatch(fetchRentalByIdInit());
+  axios.get(`/api/v1/rentals/${rentalId}`).then(rental => {
+    debugger;
+    dispatch(fetchRentalByIdSuccess(rental.data));
+  });
 };

@@ -6,7 +6,7 @@ const RentalCard = props => {
   const rental = props.rental;
   return (
     <Col md={3} xs={6}>
-      <Link to={`/rentals/${rental.id}`} className='rental-detail-link'>
+      <Link to={`/rentals/${rental._id}`} className='rental-detail-link'>
         <Card className='bwm-card'>
           <Card.Img
             className='card-img-top'

@@ -8,7 +8,6 @@ const INIT_STATE = {
 export const rentalReducer = (state = INIT_STATE.rentals, action) => {
   switch (action.type) {
     case FETCH_RENTALS_SUCCESS: {
-      debugger;
       return { ...state, data: action.payload };
     }
     default:
