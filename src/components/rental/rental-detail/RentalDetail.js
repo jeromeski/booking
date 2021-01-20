@@ -10,7 +10,6 @@ class RentalDetail extends Component {
   }
   render() {
     const rental = this.props.rental;
-    console.log(rental);
     if (rental._id) {
       return (
         <div>
@@ -27,7 +26,6 @@ class RentalDetail extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return { rental: state.rental.data };
 };
 
