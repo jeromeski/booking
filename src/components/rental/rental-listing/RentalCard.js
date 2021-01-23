@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Col, Card } from 'react-bootstrap';
+import { rentalType } from '../../../helpers';
 
 const RentalCard = props => {
   const rental = props.rental;
@@ -14,8 +15,7 @@ const RentalCard = props => {
             alt={rental.title}></Card.Img>
           <div className='card-block'>
             <Card.Subtitle className={`mb-2 ${rental.category}`}>
-              {rental.shared ? 'shared' : 'whole'} {rental.category} &#183;{' '}
-              {rental.city}
+              {rentalType(rental.shared)} {rental.category} &#183; {rental.city}
             </Card.Subtitle>
             <Card.Title>{rental.title}</Card.Title>
             <Card.Text>

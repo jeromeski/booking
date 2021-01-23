@@ -32,7 +32,7 @@ class RentalDetail extends Component {
                 <RentalDetailInfo rental={rental} />
               </div>
 
-              <div className='col-md-4'> BOOKING</div>
+              <div className='col-md-4'>BOOKING</div>
             </div>
           </div>
         </section>
