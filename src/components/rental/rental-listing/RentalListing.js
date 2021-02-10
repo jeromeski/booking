@@ -3,9 +3,39 @@ import { connect } from 'react-redux';
 import { rentalItems } from '../../../data';
 import { fetchRentals } from '../../../actions';
 import RentalList from './RentalList';
+import { render } from '@testing-library/react';
+
+const withAlert = (ChildComponent) => {
+  class ComposedComponent extends Component {
+    alertUser() {
+      alert('WAKE UP!!!');
+    }
+
+    render() {
+      return <ChildComponent {...this.props} alert={this.alertUser} />;
+    }
+  }
+  return ComposedComponent;
+};
+
+const withDanger = (ChildComponent) => {
+  class ComposedComponent extends Component {
+    dangerUser() {
+      alert('DANGER!!!');
+    }
+
+    render() {
+      return <ChildComponent {...this.props} danger={this.dangerUser} />;
+    }
+  }
+  return ComposedComponent;
+};
+
 
 class RentalListing extends Component {
   componentDidMount() {
+    this.props.alert();
+    this.props.danger();
     this.props.fetchRentals(rentalItems());
   }
 
@@ -27,4 +57,6 @@ function mapStateToProps({ rentals }) {
   };
 }
 
-export default connect(mapStateToProps, { fetchRentals })(RentalListing);
+export default withDanger(
+  withAlert(connect(mapStateToProps, { fetchRentals })(RentalListing))
+);
