@@ -14,7 +14,9 @@ const MapComponent = (props) => {
     <GoogleMap
       defaultZoom={13}
       defaultCenter={coordinates}
-      center={coordinates}>
+      center={coordinates}
+      options={{disableDefaultUI: isError ? true: false}}
+      >
       {isLocationLoaded && !isError && (
         <Circle center={coordinates} radius={500} />
       )}
@@ -41,14 +43,21 @@ const withGeoCode = (WrappedComponent) => {
         lng: 0,
       },
       isError: false,
-      isLocationLoaded: false
+      isLocationLoaded: false,
     };
 
     componentDidMount() {
       this.getGeocodedLocation();
     }
 
-    geocodeLocation(location) {      
+    updateCoordinates(coordinates) {
+      this.setState({
+        coordinates,
+        isLocationLoaded: true,
+      });
+    }
+
+    geocodeLocation(location) {
       const geoCoder = new window.google.maps.Geocoder();
 
       return new Promise((resolve, reject) => {
@@ -68,17 +77,17 @@ const withGeoCode = (WrappedComponent) => {
     getGeocodedLocation() {
       const location = this.props.location;
       if (this.cacher.isValueCached(location)) {
-        this.setState({ coordinates: this.cacher.getChachedValue(location), isLocationLoaded: true });
+        this.updateCoordinates(this.cacher.getChachedValue(location));
       } else {
-        this.geocodeLocation(location)
-        .then(
+        this.geocodeLocation(location).then(
           (coordinates) => {
-            this.setState({ coordinates, isLocationLoaded: false });
+            this.updateCoordinates(coordinates);;
           },
           (error) => {
             this.setState({
-              isError: true, isLocationLoaded: true 
-             });
+              isError: true,
+              isLocationLoaded: true,
+            });
           }
         );
       }
