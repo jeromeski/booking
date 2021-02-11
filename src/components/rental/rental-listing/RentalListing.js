@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { rentalItems } from '../../../data';
 import { fetchRentals } from '../../../actions';
 import RentalList from './RentalList';
-import { render } from '@testing-library/react';
 
 const withAlert = (ChildComponent) => {
   class ComposedComponent extends Component {

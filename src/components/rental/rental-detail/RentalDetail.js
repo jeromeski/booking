@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchRentalById } from '../../../actions';
-import MapWithAMarker from '../../map/GoogleMap';
-
 import RentalDetailInfo from './RentalDetailInfo';
+import RentalMap from './RentalMap';
 
 class RentalDetail extends Component {
   componentDidMount() {
@@ -13,8 +12,7 @@ class RentalDetail extends Component {
   }
   render() {
     const rental = this.props.rental;
-    const googleKey = process.env.REACT_APP_GOOGLE_MAP_KEY;
-    console.log(googleKey);
+
     if (rental._id) {
       return (
         <section id='rentalDetails'>
@@ -24,12 +22,7 @@ class RentalDetail extends Component {
                 <img src={rental.image} alt=''></img>
               </div>
               <div className='col-md-6'>
-                <MapWithAMarker
-                  googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${googleKey}&v=3.exp&libraries=geometry,drawing,places`}
-                  loadingElement={<div style={{ height: `100%` }} />}
-                  containerElement={<div style={{ height: `360px` }} />}
-                  mapElement={<div style={{ height: `100%` }} />}
-                />
+                <RentalMap location={`${rental.city}, ${rental.street}`} />
               </div>
             </div>
           </div>
