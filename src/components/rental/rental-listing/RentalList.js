@@ -10,7 +10,6 @@ class RentalList extends Component {
   }
 
   render() {
-    console.log(this.props);
     return <Row>{this.renderRentals()}</Row>;
   }
 }
