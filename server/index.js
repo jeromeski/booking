@@ -1,10 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const config = require('./config/dev');
 const FakeDb = require('./fake-db');
-const rentalRoutes = require('./routes/rentals');
+const rentalRoutes = require('./routes/rentals'),
+  userRoutes = require('./routes/user');
 
 mongoose
   .connect(config.DB_URI, {
@@ -22,9 +24,11 @@ mongoose
   .catch(err => console.log(err));
 
 const app = express();
-
 app.use(cors());
+app.use(bodyParser.json());
+
 app.use('/api/v1/rentals', rentalRoutes);
+app.use('/api/v1/users', userRoutes);
 
 app.get('/rentals', (req, res) => {
   res.json({
