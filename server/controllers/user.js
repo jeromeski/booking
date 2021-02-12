@@ -115,17 +115,11 @@ exports.authMiddleware = (req, res, next) => {
         res.locals.user = user;
         next();
       } else {
-        return res.status(422).send({
-          errors: normalizeErrors(err.errors)
-        });
+         return notAuthorized(res);
       }
     });
   } else {
-    return res.status(422).send({
-      errors: [
-        { title: 'Not Authorized!', detail: 'You need to login to get access.' }
-      ]
-    });
+    return notAuthorized(res);
   }
 };
 
@@ -133,4 +127,12 @@ const parseToken = (token) => {
   token = token.split(' ').splice(1).toString();
   const decoded = jwt.verify(token, config.SECRET);
   return decoded;
+};
+
+const notAuthorized = (res) => {
+  res.status(422).send({
+    errors: [
+      { title: 'Not Authorized!', detail: 'You need to login to get access.' }
+    ]
+  });
 };
