@@ -1,12 +1,12 @@
 /* eslint-disable no-useless-escape */
 const mongoose = require('mongoose');
-const Schema = new mongoose.Schema();
+const Schema = mongoose.Schema;
 
-const userSchema = Schema({
+const userSchema = new Schema({
   username: {
     type: String,
     min: [4, 'Too short, min is 4 characters'],
-    max: [32, 'Too long max is 32 characters'],
+    max: [32, 'Too long max is 32 characters']
   },
   email: {
     type: String,
@@ -15,15 +15,15 @@ const userSchema = Schema({
     unique: true,
     lowercase: true,
     required: 'Email is required',
-    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/],
+    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/]
   },
   password: {
     type: String,
     min: [4, 'Too short, min is 4 characters'],
     max: [32, 'Too long, max is 32 characters'],
-    required: 'Password is required',
+    required: 'Password is required'
   },
-  rentals: [{ type: Schema.Types.ObjectId, ref: 'Rental' }],
+  rentals: [{ type: Schema.Types.ObjectId, ref: 'Rental' }]
 });
 
 module.exports = mongoose.model('User', userSchema);
