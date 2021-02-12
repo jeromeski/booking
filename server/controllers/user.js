@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const MongooseHelpers = require('../helpers/mongoose');
 
 exports.auth = (req, res) => {};
 
@@ -25,23 +26,15 @@ exports.register = (req, res) => {
 
   User.findOne({ email }, (err, existingUser) => {
     if (err) {
-      return  res.status(422).send({
-        errors: [
-          {
-            title: 'Some Error',
-            detail: 'Will be tackled later',
-          },
-        ],
+      return res.status(422).send({
+        errors: [{ mongoose: 'handle mongoose errors in next lecture' }]
       });
     }
     if (existingUser) {
       return res.status(422).send({
         errors: [
-          {
-            title: 'User Exists',
-            detail: 'This email already exists in the database!',
-          },
-        ],
+          { title: 'Invalid email!', detail: 'User with this email exists' }
+        ]
       });
     }
 
@@ -54,13 +47,12 @@ exports.register = (req, res) => {
     });
 
     user.save((err) => {
-      if(err) {
+      if (err) {
         return res.status(422).send({
-          'mongoose': 'Handle mongoose error next lecture'
+          errors: MongooseHelpers.normalizeErrors(err.errors)
         });
-      } else {
-        return res.send({'registered': true})
       }
+      return res.send({ registered: true });
     });
   });
 };
