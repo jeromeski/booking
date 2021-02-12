@@ -28,14 +28,23 @@ const userSchema = new Schema({
   rentals: [{ type: Schema.Types.ObjectId, ref: 'Rental' }]
 });
 
-userSchema.methods.isSamePassword = (requestedPassword) => {
-  return bcrypt.compareSync(requestedPassword, this.password);
+userSchema.methods.hasSamePassword = function (requestedPassword) {
+  let password = this.password;
+  // return new Promise((resolve, reject) => {
+  //   bcrypt.compareSync(requestedPassword, password, (err, success) => {
+  //     if (err) return reject(err);
+  //     return resolve(success);
+  //   });
+  // });
+  return async () => {
+    return await bcrypt.compareSync(requestedPassword, password);
+  };
 };
 
-userSchema.pre('save', (next) => {
+userSchema.pre('save', function (next) {
   const user = this;
   bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(user.password, salt, (err, hash) => {
+    bcrypt.hash(user.password, salt, function (err, hash) {
       user.password = hash;
       next();
     });
