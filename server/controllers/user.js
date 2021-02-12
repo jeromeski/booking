@@ -99,3 +99,38 @@ exports.register = (req, res) => {
     });
   });
 };
+
+exports.authMiddleware = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (token) {
+    const user = parseToken(token);
+    User.findById(user.userId, function (err, user) {
+      if (err) {
+        return res.status(422).send({
+          errors: normalizeErrors(err.errors)
+        });
+      }
+      if (user) {
+        //  will forward this request to the next middleware or route handler
+        res.locals.user = user;
+        next();
+      } else {
+        return res.status(422).send({
+          errors: normalizeErrors(err.errors)
+        });
+      }
+    });
+  } else {
+    return res.status(422).send({
+      errors: [
+        { title: 'Not Authorized!', detail: 'You need to login to get access.' }
+      ]
+    });
+  }
+};
+
+const parseToken = (token) => {
+  token = token.split(' ').splice(1).toString();
+  const decoded = jwt.verify(token, config.SECRET);
+  return decoded;
+};
