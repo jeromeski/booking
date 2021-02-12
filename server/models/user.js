@@ -2,6 +2,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const bcrypt = require('bcrypt');
+
 const userSchema = new Schema({
   username: {
     type: String,
@@ -24,6 +26,16 @@ const userSchema = new Schema({
     required: 'Password is required'
   },
   rentals: [{ type: Schema.Types.ObjectId, ref: 'Rental' }]
+});
+
+userSchema.pre('save', (next) => {
+  const user = this;
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(user.password, salt, (err, hash) => {
+      user.password = hash;
+      next();
+    });
+  });
 });
 
 module.exports = mongoose.model('User', userSchema);
