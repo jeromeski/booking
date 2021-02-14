@@ -3,25 +3,33 @@ import RegisterForm from './RegisterForm';
 import * as actions from '../../actions';
 
 class Register extends Component {
+  constructor() {
+    super();
+    this.state = {
+      errors: []
+    };
+    this.handleRegisterUser = this.handleRegisterUser.bind(this)
+  }
   handleRegisterUser(userData) {
     actions.register(userData).then(
       (registered) => {
         debugger;
       },
       (errors) => {
-        debugger;
+        this.setState({  errors  });;
       }
     );
   }
 
   render() {
+    const {errors} = this.state
     return (
       <section id='register'>
         <div className='bwm-form'>
           <div className='row'>
             <div className='col-md-5'>
               <h1>Register</h1>
-              <RegisterForm submitCb={this.handleRegisterUser} />
+              <RegisterForm submitCb={this.handleRegisterUser} errors={errors} />
             </div>
             <div className='col-md-6 ml-auto'>
               <div className='image-container'>
