@@ -1,65 +1,51 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { BwmInput } from '../shared/form/BwmInput';
 
-const renderField = ({
-  input,
-  label,
-  type,
-  className,
-  meta: { touched, error, warning }
-}) => (
-  <div className='form-group'>
-    <label>{label}</label>
-    <div className='input-group'>
-      <input {...input} type={type} className={className} />
-    </div>
-    {touched && error && <div className='alert alert-danger'>{error}</div>}
-  </div>
-);
 
 const RegisterForm = (props) => {
-  const { handleSubmit, pristine, submitting, submitCb } = props;
+  const { handleSubmit, pristine, submitting, submitCb, valid } = props;
   return (
     <form onSubmit={handleSubmit(submitCb)}>
       <Field
         name='firstName'
         type='text'
         className='form-control'
-        component={renderField}
+        component={BwmInput}
         label='Username'
       />
       <Field
         name='lastName'
         type='text'
         className='form-control'
-        component={renderField}
+        component={BwmInput}
         label='Lastname'
       />
       <Field
         name='email'
         type='email'
         className='form-control'
-        component={renderField}
+        component={BwmInput}
         label='email'
       />
       <Field
         name='password'
         type='password'
         className='form-control'
-        component={renderField}
+        component={BwmInput}
         label='Password'
       />
       <Field
         name='password2'
         type='password'
         className='form-control'
-        component={renderField}
+        component={BwmInput}
         label='Confirm Password'
       />
       <button
         className='btn btn-bwm btn-form'
         type='submit'
-        disabled={pristine || submitting}>
+        disabled={!valid || pristine || submitting}>
         Submit
       </button>
     </form>

@@ -115,7 +115,8 @@
     margin-top: 50px;
     letter-spacing: 1px; }
   .bwm-form .btn-form {
-    margin-top: 15px; }
+    margin-top: 15px;
+    color: white; }
 
 .bwm-res-errors {
   margin: 10px 0; }
@@ -137,7 +138,7 @@
   color: #d68000; }
 
 .btn-bwm {
-  background-color: #61dafb;
+  background-color: #61dafb !important;
   border-color: #61dafb;
   color: white;
   padding: 15px 30px;
