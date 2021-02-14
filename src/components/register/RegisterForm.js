@@ -2,9 +2,9 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 const RegisterForm = (props) => {
-  const { handleSubmit, pristine, reset, submitting } = props;
+  const { handleSubmit, pristine, submitting, submitCb } = props;
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(submitCb)}>
       <div>
         <label>First Name</label>
         <div>
@@ -42,18 +42,35 @@ const RegisterForm = (props) => {
         </div>
       </div>
       <div>
+        <label>Password</label>
+        <div>
+          <Field
+            name='password'
+            component='input'
+            type='password'
+            placeholder='Password'
+            className='form-control'
+          />
+        </div>
+      </div>
+      <div>
+        <label>Confirm Password</label>
+        <div>
+          <Field
+            name='password2'
+            component='input'
+            type='password'
+            placeholder='Confirm Password'
+            className='form-control'
+          />
+        </div>
+      </div>
+      <div>
         <button
-          className='btn btn-success'
+          className='btn btn-bwm btn-form'
           type='submit'
           disabled={pristine || submitting}>
           Submit
-        </button>
-        <button
-          className='btn btn-secondary'
-          type='button'
-          disabled={pristine || submitting}
-          onClick={reset}>
-          Clear Values
         </button>
       </div>
     </form>

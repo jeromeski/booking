@@ -1,5 +1,5 @@
 .bwm-form {
-  color: $main-text-color-gray;
+  color: $main-text-gray-color;
 
   h1 {
     font-weight: 700;
@@ -32,7 +32,12 @@
     margin-top: 50px;
     letter-spacing: 1px;
   }
+  
+  .btn-form {
+    margin-top: 15px; 
+  }
 }
+
 
 .bwm-res-errors {
   margin: 10px 0;
