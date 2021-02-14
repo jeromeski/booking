@@ -7,6 +7,8 @@ import { Container } from 'react-bootstrap';
 import { init } from './reducers';
 import RentalListing from './components/rental/rental-listing/RentalListing';
 import RentalDetail from './components/rental/rental-detail/RentalDetail';
+import Login from './components/login/Login';
+import Register from './components/register/Register';
 
 const store = init();
 
@@ -25,6 +27,8 @@ const App = () => {
           />
           <Route exact path='/rentals' component={RentalListing} />
           <Route exact path='/rentals/:id' component={RentalDetail} />
+          <Route exact path='/login' component={Login} />
+          <Route exact path='/register' component={Register} />
         </Container>
       </BrowserRouter>
     </Provider>
