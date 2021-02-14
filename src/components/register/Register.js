@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import RegisterForm from './RegisterForm';
+import * as actions from '../../actions';
 
 class Register extends Component {
   handleRegisterUser(userData) {
-    debugger;
+    actions.register(userData).then(
+      (registered) => {
+        debugger;
+      },
+      (errors) => {
+        debugger;
+      }
+    );
   }
 
   render() {

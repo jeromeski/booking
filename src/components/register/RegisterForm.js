@@ -8,18 +8,11 @@ const RegisterForm = (props) => {
   return (
     <form onSubmit={handleSubmit(submitCb)}>
       <Field
-        name='firstName'
+        name='username'
         type='text'
         className='form-control'
         component={BwmInput}
         label='Username'
-      />
-      <Field
-        name='lastName'
-        type='text'
-        className='form-control'
-        component={BwmInput}
-        label='Lastname'
       />
       <Field
         name='email'
