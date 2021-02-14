@@ -1,28 +1,41 @@
 import React, { Component } from 'react';
 import RegisterForm from './RegisterForm';
 import * as actions from '../../actions';
+import { Redirect } from 'react-router-dom';
 
 class Register extends Component {
   constructor() {
     super();
     this.state = {
-      errors: []
+      errors: [],
+      redirect: false
     };
     this.handleRegisterUser = this.handleRegisterUser.bind(this)
   }
   handleRegisterUser(userData) {
     actions.register(userData).then(
       (registered) => {
-        debugger;
+        this.setState({ redirect: true });
       },
       (errors) => {
-        this.setState({  errors  });;
+        this.setState({ errors });
       }
     );
   }
 
   render() {
-    const {errors} = this.state
+    const { errors, redirect } = this.state;
+
+    if (redirect) {
+      return (
+        <Redirect
+          to={{
+            pathname: '/login',
+            state: { successRegister: true }
+          }}
+        />
+      );
+    }
     return (
       <section id='register'>
         <div className='bwm-form'>
