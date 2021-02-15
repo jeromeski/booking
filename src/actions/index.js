@@ -1,9 +1,11 @@
 import axios from 'axios';
 
 import {
-  FETCH_RENTALS_SUCCESS,
-  FETCH_RENTAL_BY_ID_INIT,
-  FETCH_RENTAL_BY_ID_SUCCESS
+	FETCH_RENTALS_SUCCESS,
+	FETCH_RENTAL_BY_ID_INIT,
+	FETCH_RENTAL_BY_ID_SUCCESS,
+	LOGIN_SUCCESS,
+	LOGIN_FAILURE
 } from '../actions/types';
 
 //====== RENTALS ACTIONS =============================
@@ -50,3 +52,33 @@ export const register = (userData) => {
     (err) => Promise.reject(err.response.data.errors)
   );
 }
+
+export const loginSuccess = (token) => {
+	return {
+		type: LOGIN_SUCCESS,
+		token
+	};
+};
+
+export const loginFailure = (errors) => {
+	return {
+		type: LOGIN_FAILURE,
+		errors
+	};
+};
+
+export const login = (userData) => {
+	return (dispatch) =>
+		axios
+			.post('/api/v1/auth', { userData })
+			.then((res) => res.data)
+			.then((token) => {
+				localStorage.setItem('auth_token', token);
+				dispatch(loginSuccess(token));
+			})
+			.catch((resErr) => {
+				dispatch(
+					loginFailure(resErr.data.errors)
+				);
+			});
+};
