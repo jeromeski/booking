@@ -5,7 +5,6 @@ import {
 
 const INIT_STATE = {
 	isAuth: false,
-	token: '',
 	errors: []
 };
 
@@ -23,7 +22,6 @@ export const authReducer = (
 			// };
 			return Object.assign({}, state, {
 				isAuth: true,
-				token: action.token,
 				errors: []
 			});
 		}

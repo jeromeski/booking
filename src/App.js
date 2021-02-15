@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Header from './shared/Header';
@@ -10,30 +10,59 @@ import RentalDetail from './components/rental/rental-detail/RentalDetail';
 import Login from './components/login/Login';
 import Register from './components/register/Register';
 import './App.scss';
+import * as actions from './actions';
 
 const store = init();
 
-const App = () => {
-  return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Header />
-        <Container>
-          <Route
-            exact
-            path='/'
-            render={() => {
-              return <Redirect to='/rentals' />;
-            }}
-          />
-          <Route exact path='/rentals' component={RentalListing} />
-          <Route exact path='/rentals/:id' component={RentalDetail} />
-          <Route exact path='/login' component={Login} />
-          <Route exact path='/register' component={Register} />
-        </Container>
-      </BrowserRouter>
-    </Provider>
-  );
-};
+class App extends Component {
+	componentDidMount() {
+		
+		this.checkAuthState()
+	}
+	checkAuthState() {
+    debugger
+		// We don't need connect coz we have store here.
+    		store.dispatch(actions.checkAuthState());
+	}
+	render() {
+		return (
+			<Provider store={store}>
+				<BrowserRouter>
+					<Header />
+					<Container>
+						<Route
+							exact
+							path='/'
+							render={() => {
+								return <Redirect to='/rentals' />;
+							}}
+						/>
+						<Route
+							exact
+							path='/rentals'
+							component={RentalListing}
+						/>
+						<Route
+							exact
+							path='/rentals/:id'
+							component={RentalDetail}
+						/>
+						<Route
+							exact
+							path='/login'
+							component={Login}
+						/>
+						<Route
+							exact
+							path='/register'
+							component={Register}
+						/>
+					</Container>
+				</BrowserRouter>
+			</Provider>
+		);
+	}
+}
+
 
 export default App;

@@ -7,7 +7,7 @@ import {
   Button,
   Nav
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -32,10 +32,10 @@ const Header = () => {
         <Navbar.Toggle aria-controls='navbarNavAltMarkup' />
         <Navbar.Collapse id='navbarNavAltMarkup'>
           <Nav className='ml-auto'>
-            <Nav.Link className='nav-item' href='' active>
+            <Nav.Link className='nav-item' as={Link} to='/login'>
               Login<span className='sr-only'>(current)</span>
             </Nav.Link>
-            <Nav.Link className='nav-item' href=''>
+            <Nav.Link className='nav-item' as={Link} to='/register'>
               Register
             </Nav.Link>
           </Nav>
