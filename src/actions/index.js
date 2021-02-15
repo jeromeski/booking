@@ -70,7 +70,7 @@ export const loginFailure = (errors) => {
 export const login = (userData) => {
 	return (dispatch) =>
 		axios
-			.post('/api/v1/auth', { userData })
+			.post('/api/v1/users/auth', { ...userData })
 			.then((res) => res.data)
 			.then((token) => {
 				localStorage.setItem('auth_token', token);

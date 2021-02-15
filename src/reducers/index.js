@@ -1,14 +1,16 @@
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { rentalReducer, selectedRentalReducer } from './rental-reducer';
+import { authReducer } from './auth-reducer';
 import { reducer as formReducer } from 'redux-form';
 
 export const init = () => {
   const reducer = combineReducers({
-    rentals: rentalReducer,
-    rental: selectedRentalReducer,
-    form: formReducer
-  });
+		rentals: rentalReducer,
+		rental: selectedRentalReducer,
+		form: formReducer,
+		auth: authReducer
+	});
 
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
