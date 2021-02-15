@@ -1,6 +1,10 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { BwmInput } from '../shared/form/BwmInput';
+import {
+	required,
+	minLength4
+} from '../shared/form/validators';
 // import BwmResError from '../shared/form/BwmResError';
 
 const LoginForm = (props) => {
@@ -20,6 +24,7 @@ const LoginForm = (props) => {
 				className='form-control'
 				component={BwmInput}
 				label='Email'
+				validate={[required, minLength4]}
 			/>
 			<Field
 				name='password'
@@ -27,6 +32,7 @@ const LoginForm = (props) => {
 				className='form-control'
 				component={BwmInput}
 				label='Password'
+				validate={[required]}
 			/>
 			<button
 				className='btn btn-bwm btn-form'
