@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LoginForm from './LoginForm';
 import * as actions from '../../actions';
+import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
 	constructor() {
@@ -16,6 +17,14 @@ class Login extends Component {
 	}
 
 	render() {
+    const { isAuth, errors } = this.props.auth;
+
+		if (isAuth) {
+			return (
+				<Redirect to={{ pathname: '/rentals' }} />
+			);
+		}
+    
 		return (
 			<section id='login'>
 				<div className='bwm-form'>
@@ -24,6 +33,7 @@ class Login extends Component {
 							<h1>Login</h1>
 							<LoginForm
 								submitCb={this.handleLoginUser}
+								errors={errors}
 							/>
 						</div>
 						<div className='col-md-6 ml-auto'>

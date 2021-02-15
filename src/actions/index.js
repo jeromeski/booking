@@ -61,7 +61,7 @@ export const register = (userData) => {
   );
 }
 
-export const loginFailure = (errors) => {
+const loginFailure = (errors) => {
 	return {
 		type: LOGIN_FAILURE,
 		errors
@@ -77,18 +77,18 @@ export const checkAuthState = () => {
 };
 
 export const login = (userData) => {
-  debugger;
-	return (dispatch) =>
-		axios
-			.post('/api/v1/users/auth', { ...userData })
+	return (dispatch) => {
+		return axios
+			.post('/api/v1/users/auth', userData)
 			.then((res) => res.data)
 			.then((token) => {
-				localStorage.setItem('auth_token', token);
+				authService.saveToken(token);
 				dispatch(loginSuccess());
 			})
-			.catch((resErr) => {
+			.catch(({   response   }) => {
 				dispatch(
-					loginFailure(resErr.data.errors)
+					loginFailure(response.data.errors)
 				);
 			});
+	};
 };

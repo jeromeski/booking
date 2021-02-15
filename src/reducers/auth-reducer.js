@@ -13,24 +13,15 @@ export const authReducer = (
 	action
 ) => {
 	switch (action.type) {
-		case LOGIN_SUCCESS: {
-			// return {
-			// 	...state,
-			// 	isAuth: true,
-			// 	token: action.token,
-			// 	errors: []
-			// };
-			return Object.assign({}, state, {
+		case LOGIN_SUCCESS:
+			return {
+				...state,
 				isAuth: true,
 				errors: []
-			});
-		}
-		case LOGIN_FAILURE: {
-			// return { ...state, data: action.errors };
-			return Object.assign({}, state, {
-				errors: action.errors
-			});
-		}
+			};
+		case LOGIN_FAILURE:
+			return { ...state, errors: action.errors };
+
 		default:
 			return state;
 	}

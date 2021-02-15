@@ -6,54 +6,62 @@ import RentalList from './RentalList';
 
 const withAlert = (ChildComponent) => {
   class ComposedComponent extends Component {
-    alertUser() {
-      alert('WAKE UP!!!');
-    }
+		alertUser() {}
 
-    render() {
-      return <ChildComponent {...this.props} alert={this.alertUser} />;
-    }
-  }
+		render() {
+			return (
+				<ChildComponent
+					{...this.props}
+					alert={this.alertUser}
+				/>
+			);
+		}
+	}
   return ComposedComponent;
 };
 
 const withDanger = (ChildComponent) => {
   class ComposedComponent extends Component {
-    dangerUser() {
-      alert('DANGER!!!');
-    }
+		dangerUser() {}
 
-    render() {
-      return <ChildComponent {...this.props} danger={this.dangerUser} />;
-    }
-  }
+		render() {
+			return (
+				<ChildComponent
+					{...this.props}
+					danger={this.dangerUser}
+				/>
+			);
+		}
+	}
   return ComposedComponent;
 };
 
 
 class RentalListing extends Component {
-  componentDidMount() {
-    this.props.alert();
-    this.props.danger();
-    this.props.fetchRentals(rentalItems());
-  }
+	componentDidMount() {
+		this.props.alert();
+		this.props.danger();
+		this.props.fetchRentals(rentalItems());
+	}
 
-  render() {
-    console.log(this.props);
-    return (
-      <section id='rentalListing'>
-        <h1 className='page-title'>Your Home All Around the World</h1>
-        <RentalList rentals={this.props.rentals} />
-      </section>
-    );
-  }
+	render() {
+		return (
+			<section id='rentalListing'>
+				<h1 className='page-title'>
+					Your Home All Around the World
+				</h1>
+				<RentalList
+					rentals={this.props.rentals}
+				/>
+			</section>
+		);
+	}
 }
 
 function mapStateToProps({ rentals }) {
-  console.log(rentals);
-  return {
-    rentals: rentals.data
-  };
+	return {
+		rentals: rentals.data
+	};
 }
 
 export default withDanger(

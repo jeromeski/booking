@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import Header from './shared/Header';
+import Header from './components/shared/Header';
 import { Container } from 'react-bootstrap';
 
 import { init } from './reducers';
@@ -16,13 +16,11 @@ const store = init();
 
 class App extends Component {
 	componentDidMount() {
-		
-		this.checkAuthState()
+		this.checkAuthState();
 	}
 	checkAuthState() {
-    debugger
 		// We don't need connect coz we have store here.
-    		store.dispatch(actions.checkAuthState());
+		store.dispatch(actions.checkAuthState());
 	}
 	render() {
 		return (

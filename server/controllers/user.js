@@ -22,8 +22,13 @@ exports.auth = (req, res) => {
 
     if(!user) {
       return res.status(422).send({
-         title: 'Invalid User', detail: 'User doesn\'t exist!' 
-      });
+				errors: [
+					{
+						title: 'Invalid User!',
+						detail: 'User does not exist'
+					}
+				]
+			});
     }
 
     if (user.hasSamePassword(password)) {

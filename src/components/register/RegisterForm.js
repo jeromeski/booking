@@ -7,44 +7,48 @@ import BwmResError from '../shared/form/BwmResError';
 const RegisterForm = (props) => {
   const { handleSubmit, pristine, submitting, submitCb, valid, errors } = props;
   return (
-    <form onSubmit={handleSubmit(submitCb)}>
-      <Field
-        name='username'
-        type='text'
-        className='form-control'
-        component={BwmInput}
-        label='Username'
-      />
-      <Field
-        name='email'
-        type='email'
-        className='form-control'
-        component={BwmInput}
-        label='email'
-      />
-      <Field
-        name='password'
-        type='password'
-        className='form-control'
-        component={BwmInput}
-        label='Password'
-      />
-      <Field
-        name='password2'
-        type='password'
-        className='form-control'
-        component={BwmInput}
-        label='Confirm Password'
-      />
-      <button
-        className='btn btn-bwm btn-form'
-        type='submit'
-        disabled={!valid || pristine || submitting}>
-        Submit
-      </button>
-      {errors.length > 0 && <BwmResError errors={errors} />}
-    </form>
-  );
+		<form onSubmit={handleSubmit(submitCb)}>
+			<Field
+				name='username'
+				type='text'
+				className='form-control'
+				component={BwmInput}
+				label='Username'
+			/>
+			<Field
+				name='email'
+				type='email'
+				className='form-control'
+				component={BwmInput}
+				label='email'
+			/>
+			<Field
+				name='password'
+				type='password'
+				className='form-control'
+				component={BwmInput}
+				label='Password'
+			/>
+			<Field
+				name='password2'
+				type='password'
+				className='form-control'
+				component={BwmInput}
+				label='Confirm Password'
+			/>
+			<button
+				className='btn btn-bwm btn-form'
+				type='submit'
+				disabled={
+					!valid || pristine || submitting
+				}>
+				Register
+			</button>
+			{errors.length > 0 && (
+				<BwmResError errors={errors} />
+			)}
+		</form>
+	);
 };
 
 const validate = (values) => {
