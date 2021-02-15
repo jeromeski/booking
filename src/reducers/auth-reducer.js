@@ -1,6 +1,7 @@
 import {
 	LOGIN_SUCCESS,
-	LOGIN_FAILURE
+	LOGIN_FAILURE,
+	LOGOUT
 } from '../actions/types';
 
 const INIT_STATE = {
@@ -22,7 +23,14 @@ export const authReducer = (
 		case LOGIN_FAILURE:
 			return { ...state, errors: action.errors };
 
+		case LOGOUT:
+			return {
+				...state,
+				isAuth: false
+			};
+
 		default:
 			return state;
 	}
 };
+

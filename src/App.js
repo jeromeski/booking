@@ -22,11 +22,15 @@ class App extends Component {
 		// We don't need connect coz we have store here.
 		store.dispatch(actions.checkAuthState());
 	}
+
+	logoutUser() {
+		store.dispatch(actions.logout());
+	}
 	render() {
 		return (
 			<Provider store={store}>
 				<BrowserRouter>
-					<Header />
+					<Header logout={this.logoutUser} />
 					<Container>
 						<Route
 							exact

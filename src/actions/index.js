@@ -6,7 +6,8 @@ import {
 	FETCH_RENTAL_BY_ID_INIT,
 	FETCH_RENTAL_BY_ID_SUCCESS,
 	LOGIN_SUCCESS,
-	LOGIN_FAILURE
+	LOGIN_FAILURE,
+	LOGOUT
 } from '../actions/types';
 
 
@@ -90,5 +91,12 @@ export const login = (userData) => {
 					loginFailure(response.data.errors)
 				);
 			});
+	};
+};
+
+export const logout = () => {
+	authService.invalidateUser();
+	return {
+		type: LOGOUT
 	};
 };

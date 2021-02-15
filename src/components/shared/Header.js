@@ -9,7 +9,8 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const Header = () => {
+const Header = (props) => {
+	const { logout } = props;
 	return (
 		<Navbar bg='dark' variant='dark' expand='lg'>
 			<Container>
@@ -44,6 +45,12 @@ const Header = () => {
 							className='nav-item nav-link'
 							to='/register'>
 							Register
+						</Link>
+						<Link
+							className='nav-item nav-link'
+              onClick={logout()}
+              >
+							Logout
 						</Link>
 					</Nav>
 				</Navbar.Collapse>
