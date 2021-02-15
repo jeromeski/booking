@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Fragment } from 'react';
 import {
 	Container,
 	Navbar,
@@ -7,10 +8,56 @@ import {
 	Button,
 	Nav
 } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+
+const ShowAuthButton = ({ logout }) => {
+	return (
+		// eslint-disable-next-line jsx-a11y/anchor-is-valid
+		<a
+			className='nav-item nav-link clickable'
+			onClick={logout}>
+			Logout
+		</a>
+	);
+};
+
+const ShowNonAuthButtons = () => {
+	return (
+		<Fragment>
+			<Link
+				className='nav-item nav-link active'
+				to='/login'>
+				Login{' '}
+				<span className='sr-only'>(current)</span>
+			</Link>
+			<Link
+				className='nav-item nav-link'
+				to='/register'>
+				Register
+			</Link>
+		</Fragment>
+	);
+};
+
+const renderAuthButtons = (props) => {
+	const { isAuth } = props.auth;
+
+	if (isAuth) {
+		return <ShowAuthButton {...props} />;
+	} else {
+		return <ShowNonAuthButtons />;
+	}
+};
+
+
 const Header = (props) => {
-	const { logout } = props;
+
+	useEffect(() => {
+		renderAuthButtons(props);
+	}, [props]);
+
 	return (
 		<Navbar bg='dark' variant='dark' expand='lg'>
 			<Container>
@@ -33,25 +80,7 @@ const Header = (props) => {
 				<Navbar.Toggle aria-controls='navbarNavAltMarkup' />
 				<Navbar.Collapse id='navbarNavAltMarkup'>
 					<Nav className='navbar-nav ml-auto'>
-						<Link
-							className='nav-item nav-link active'
-							to='/login'>
-							Login{' '}
-							<span className='sr-only'>
-								(current)
-							</span>
-						</Link>
-						<Link
-							className='nav-item nav-link'
-							to='/register'>
-							Register
-						</Link>
-						<Link
-							className='nav-item nav-link'
-              onClick={logout()}
-              >
-							Logout
-						</Link>
+						{renderAuthButtons(props)}
 					</Nav>
 				</Navbar.Collapse>
 			</Container>
@@ -59,4 +88,11 @@ const Header = (props) => {
 	);
 };
 
-export default Header;
+
+const mapStateToProps = (state) => {
+	return {
+		auth: state.auth
+	};
+};
+
+export default connect(mapStateToProps)(Header);
