@@ -11,6 +11,7 @@ import Register from './components/register/Register';
 import './App.scss';
 import * as actions from './actions';
 import Header from './components/shared/Header';
+import ProtectedRoute from './components/shared/auth/ProtectedRoute';
 
 const store = init();
 
@@ -44,7 +45,7 @@ class App extends Component {
 							path='/rentals'
 							component={RentalListing}
 						/>
-						<Route
+						<ProtectedRoute
 							exact
 							path='/rentals/:id'
 							component={RentalDetail}

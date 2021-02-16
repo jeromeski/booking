@@ -9,7 +9,12 @@ import {
 	LOGIN_FAILURE,
 	LOGOUT
 } from '../actions/types';
+import axiosService from '../services/axios-service';
 
+
+//====== AXIOS =============================
+
+const axiosInstance = axiosService.getInstance();
 
 //====== RENTALS ACTIONS =============================
 const fetchRentalByIdInit = () => {
@@ -33,10 +38,10 @@ const fetchRentalSuccess = rentals => {
 };
 
 export const fetchRentals = () => dispatch => {
-  axios
-    .get('/api/v1/rentals')
-    .then(res => res.data)
-    .then(rentals => dispatch(fetchRentalSuccess(rentals)));
+  axiosInstance
+		.get('/rentals')
+		.then((res) => res.data)
+		.then((rentals) => dispatch(fetchRentalSuccess(rentals)));
 };
 
 export const fetchRentalById = rentalId => dispatch => {
