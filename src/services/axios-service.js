@@ -10,7 +10,7 @@ class AxiosService {
 
 	initInstance() {
 		this.axiosInstance = axios.create({
-			baseURL: '/rentals/secret',
+			baseURL: '/api/v1',
 			timeout: 1000
 		});
 		this.axiosInstance.interceptors.request.use((config) => {

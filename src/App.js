@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-
 import { Container } from 'react-bootstrap';
 import { init } from './reducers';
 import RentalListing from './components/rental/rental-listing/RentalListing';

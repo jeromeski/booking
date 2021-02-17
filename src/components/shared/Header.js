@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Fragment } from 'react';
 import {
 	Container,
@@ -9,54 +9,39 @@ import {
 	Nav
 } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-
-
-const ShowAuthButton = ({ logout }) => {
-	return (
-		// eslint-disable-next-line jsx-a11y/anchor-is-valid
-		<a
-			className='nav-item nav-link clickable'
-			onClick={logout}>
-			Logout
-		</a>
-	);
-};
-
-const ShowNonAuthButtons = () => {
-	return (
-		<Fragment>
-			<Link
-				className='nav-item nav-link active'
-				to='/login'>
-				Login{' '}
-				<span className='sr-only'>(current)</span>
-			</Link>
-			<Link
-				className='nav-item nav-link'
-				to='/register'>
-				Register
-			</Link>
-		</Fragment>
-	);
-};
-
-const renderAuthButtons = (props) => {
-	const { isAuth } = props.auth;
-
-	if (isAuth) {
-		return <ShowAuthButton {...props} />;
-	} else {
-		return <ShowNonAuthButtons />;
-	}
-};
+import { Link, withRouter } from 'react-router-dom';
 
 
 const Header = (props) => {
+  
+  const handleLogout = () => {
+    props.logout();
+    props.history.push('/login')
+  }
 
-	useEffect(() => {
-		renderAuthButtons(props);
-	}, [props]);
+  const ShowLogout = () => {
+    // eslint-disable-next-line jsx-a11y/anchor-is-valid
+    return <a className='nav-item nav-link clickable' onClick={() => handleLogout(props.logout)}>Logout</a>
+  }
+
+  const ShowLoginRegister = () => {
+    return <Fragment>
+			<Link className='nav-item nav-link active' to='/login'>
+				Login <span className='sr-only'>(current)</span>
+			</Link>
+			<Link className='nav-item nav-link' to='/register'>
+				Register
+			</Link>
+		</Fragment>;
+  }
+
+  const renderLinks = () => {
+		if (props.auth.isAuth) {
+			return <ShowLogout/>
+		} else {
+			return <ShowLoginRegister/>
+		}
+	};
 
 	return (
 		<Navbar bg='dark' variant='dark' expand='lg'>
@@ -80,7 +65,8 @@ const Header = (props) => {
 				<Navbar.Toggle aria-controls='navbarNavAltMarkup' />
 				<Navbar.Collapse id='navbarNavAltMarkup'>
 					<Nav className='navbar-nav ml-auto'>
-						{renderAuthButtons(props)}
+            {renderLinks()}
+
 					</Nav>
 				</Navbar.Collapse>
 			</Container>
@@ -95,4 +81,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps)(Header);
+export default withRouter(connect(mapStateToProps)(Header));

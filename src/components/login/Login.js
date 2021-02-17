@@ -35,24 +35,20 @@ class Login extends Component {
 							<h1>Login</h1>
 							{successRegister && (
 								<div className='alert alert-success'>
-									<p>
-										You have been succesfuly
-										registered, please login now!
-									</p>
+									<p>You have been succesfuly registered, please login now!</p>
 								</div>
 							)}
-							<LoginForm
-								submitCb={this.handleLoginUser}
-								errors={errors}
-							/>
+							<LoginForm submitCb={this.handleLoginUser} errors={errors} />
 						</div>
 						<div className='col-md-6 ml-auto'>
 							<div className='image-container'>
 								<h2 className='catchphrase'>
-									Hundreds of awesome places in
-									reach of few clicks.
+									Hundreds of awesome places in reach of few clicks.
 								</h2>
-								<img src='' alt='' />
+								<img
+									src={process.env.PUBLIC_URL + '/img/login-image.jpg'}
+									alt=''
+								/>
 							</div>
 						</div>
 					</div>

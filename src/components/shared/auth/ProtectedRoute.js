@@ -7,13 +7,13 @@ const ProtectedRoute = (props) => {
 	return (
 		<Route
 			{...rest}
-			render={(props) => {
-				return authService.isAuthenticated() ? (
-					<Redirect to={{ pathname: '/rentals' }} />
-				) : (
+			render={(props) =>
+				authService.isAuthenticated() ? (
 					<Component {...props} {...rest} />
-				);
-			}}
+				) : (
+					<Redirect to={{ pathname: '/login' }} />
+				)
+			}
 		/>
 	);
 };
