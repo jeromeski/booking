@@ -7,7 +7,8 @@ const cors = require('cors');
 const config = require('./config/dev');
 const FakeDb = require('./fake-db');
 const rentalRoutes = require('./routes/rentals'),
-  userRoutes = require('./routes/user');
+	userRoutes = require('./routes/users'),
+	bookingRoutes = require('./routes/bookings');
 
 mongoose
   .connect(config.DB_URI, {
@@ -31,7 +32,7 @@ app.use(bodyParser.json());
 
 app.use('/api/v1/rentals', rentalRoutes);
 app.use('/api/v1/users', userRoutes);
-
+app.use('/api/v1/booking', bookingRoutes);
 app.get('/rentals', (req, res) => {
   res.json({
     hello: 'World'
