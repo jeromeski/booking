@@ -7,10 +7,11 @@ import RentalListing from './components/rental/rental-listing/RentalListing';
 import RentalDetail from './components/rental/rental-detail/RentalDetail';
 import Login from './components/login/Login';
 import Register from './components/register/Register';
-import './App.scss';
+// import './App.scss';
 import * as actions from './actions';
 import Header from './components/shared/Header';
 import ProtectedRoute from './components/shared/auth/ProtectedRoute';
+import './App.scss';
 
 const store = init();
 
