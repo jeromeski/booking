@@ -20,9 +20,9 @@ mongoose
 
   .then(res => console.log('#### mongoDB is connected ####'))
   .then(() => {
-    const fakedb = new FakeDb();
-    fakedb.seeDb();
-  })
+		const fakedb = new FakeDb();
+		// fakedb.seeDb();
+	})
   .catch(err => console.log(err));
 
 const app = express();
@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 
 app.use('/api/v1/rentals', rentalRoutes);
 app.use('/api/v1/users', userRoutes);
-app.use('/api/v1/booking', bookingRoutes);
+app.use('/api/v1/bookings', bookingRoutes);
 app.get('/rentals', (req, res) => {
   res.json({
     hello: 'World'
