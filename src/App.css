@@ -24,6 +24,93 @@
   .navbar .nav-item {
     color: #ededed; }
 
+.bwm-form {
+  color: #484848; }
+  .bwm-form h1 {
+    font-weight: 700;
+    margin-bottom: 30px; }
+  .bwm-form .image-container {
+    position: relative; }
+    .bwm-form .image-container img {
+      width: 100%;
+      border-radius: 5px; }
+  .bwm-form label {
+    font-size: 12px; }
+  .bwm-form .form-text {
+    font-size: 13px; }
+  .bwm-form .catchphrase {
+    text-align: center;
+    font-size: 42px;
+    position: absolute;
+    color: #f1f1f1;
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin-top: 50px;
+    letter-spacing: 1px; }
+  .bwm-form .btn-form {
+    margin-top: 15px;
+    color: white; }
+
+.bwm-res-errors {
+  margin: 10px 0; }
+  .bwm-res-errors p {
+    margin-bottom: 5px; }
+
+.booking {
+  padding: 20px;
+  border: 1px solid #a9a9a9; }
+  .booking .btn-confirm {
+    font-size: 17px;
+    font-weight: 700;
+    padding: 13px; }
+  .booking label {
+    font-size: 12px;
+    font-weight: 300;
+    margin-bottom: 0; }
+  .booking-price {
+    font-size: 22px;
+    font-weight: 700; }
+  .booking-per-night {
+    font-size: 13px;
+    font-weight: 300; }
+  .booking-note-title {
+    font-size: 14px;
+    margin-bottom: 10px; }
+  .booking-note-text {
+    font-size: 13px;
+    font-weight: 300; }
+  .booking .should-login-btn-container {
+    text-align: center;
+    margin-bottom: 10px; }
+    .booking .should-login-btn-container .btn-login {
+      text-align: center;
+      font-size: 15px;
+      padding: 15px; }
+      .booking .should-login-btn-container .btn-login:hover, .booking .should-login-btn-container .btn-login:focus {
+        color: white;
+        text-decoration: none; }
+
+.booking-modal .title {
+  font-weight: 700;
+  font-size: 26px; }
+
+.booking-modal .buttons {
+  margin: 15px 0px; }
+
+.booking-modal em {
+  font-style: normal;
+  font-size: 17px;
+  font-weight: 700; }
+
+.booking-modal p {
+  margin: 0; }
+
+.daterangepicker td.in-range {
+  background-color: red #61dafb; }
+
+.daterangepicker td.active {
+  background-color: #61dafb !important; }
+
 #rentalListing {
   /* SINGLE CARD STYLES*/ }
   #rentalListing .title {
@@ -90,38 +177,6 @@
     display: block;
     margin-bottom: 15px;
     font-weight: 300; }
-
-.bwm-form {
-  color: #484848; }
-  .bwm-form h1 {
-    font-weight: 700;
-    margin-bottom: 30px; }
-  .bwm-form .image-container {
-    position: relative; }
-    .bwm-form .image-container img {
-      width: 100%;
-      border-radius: 5px; }
-  .bwm-form label {
-    font-size: 12px; }
-  .bwm-form .form-text {
-    font-size: 13px; }
-  .bwm-form .catchphrase {
-    text-align: center;
-    font-size: 42px;
-    position: absolute;
-    color: #f1f1f1;
-    padding: 40px;
-    background-color: rgba(0, 0, 0, 0.5);
-    margin-top: 50px;
-    letter-spacing: 1px; }
-  .bwm-form .btn-form {
-    margin-top: 15px;
-    color: white; }
-
-.bwm-res-errors {
-  margin: 10px 0; }
-  .bwm-res-errors p {
-    margin-bottom: 5px; }
 
 .clickable:hover {
   cursor: pointer; }
