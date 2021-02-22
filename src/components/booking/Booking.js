@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import * as moment from 'moment';
 import { getRangeOfDates } from '../../helpers';
+import BookingModal from './BookingModal';
 
 class Booking extends Component {
 	constructor() {
@@ -9,12 +10,18 @@ class Booking extends Component {
 		this.bookedOutDates = [];
     this.dateRef = React.createRef();
     this.state = {
-      startAt: '',
-      endAt: '',
-      guests: 0
+      proposedBooking: {
+        startAt: '',
+        endAt: '',
+        guests: 0,
+      },
+      modal: {
+        open: false
+      }    
     }
 		this.checkInvalidDates = this.checkInvalidDates.bind(this);
     this.handleApply = this.handleApply.bind(this);
+    this.cancelConfirmation = this.cancelConfirmation.bind(this);
 	}
 
 	componentDidMount() {
@@ -46,20 +53,31 @@ class Booking extends Component {
     this.dateRef.current.value = startAt + ' to ' + endAt;
 
     this.setState({
-      startAt,
-      endAt
+      proposedBooking: {startAt,
+      endAt}
     })
-
-    console.log(this.state)
 	}
 
   selectGuests(event) {
     this.setState({
-			guests: parseInt(event.target.value)
+			proposedBooking: {guests: parseInt(event.target.value)}
 		});
   }
 
-  reserve() {
+  cancelConfirmation() {
+    this.setState({
+			modal: {
+				open: false
+			}
+		});
+  }
+
+  confirmProposedData() {
+    this.setState({
+      modal: {
+        open: true
+      }
+    })
     console.log(this.state)
   }
 
@@ -91,10 +109,11 @@ class Booking extends Component {
 						aria-describedby='emailHelp'
 						placeholder=''></input>
 				</div>
-				<button onClick={() => this.reserve()} className='btn btn-bwm btn-confirm btn-block'>Reserve place now</button>
+				<button onClick={() => this.confirmProposedData()} className='btn btn-bwm btn-confirm btn-block'>Reserve place now</button>
 				<hr></hr>
 				<p className='booking-note-title'>People are interested into this house</p>
 				<p className='booking-note-text'>More than 500 people checked this rental in last month.</p>
+        <BookingModal open={this.state.modal.open} closeModal={this.cancelConfirmation} />
 			</div>
 		);
 	}
