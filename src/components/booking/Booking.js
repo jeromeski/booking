@@ -7,7 +7,14 @@ class Booking extends Component {
 	constructor() {
 		super();
 		this.bookedOutDates = [];
-    this.checkInvalidDates = this.checkInvalidDates.bind(this)
+    this.dateRef = React.createRef();
+    this.state = {
+      startAt: '',
+      endAt: '',
+      guests: 0
+    }
+		this.checkInvalidDates = this.checkInvalidDates.bind(this);
+    this.handleApply = this.handleApply.bind(this);
 	}
 
 	componentDidMount() {
@@ -20,17 +27,40 @@ class Booking extends Component {
 		if (bookings && bookings.length > 0) {
 			bookings.forEach((booking) => {
 				const dateRange = getRangeOfDates(booking.startAt, booking.endAt, 'Y/MM/DD');
-        debugger
-        this.bookedOutDates.push(...dateRange);
+				this.bookedOutDates.push(...dateRange);
 			});
 		}
 	}
 
-  checkInvalidDates(date) {
-    if(this.bookedOutDates.includes(date.format('Y/MM/DD')) || date.diff(moment (), 'days') < 0) {
-      return true
-    }
-    return false;
+	checkInvalidDates(date) {
+		if (this.bookedOutDates.includes(date.format('Y/MM/DD')) || date.diff(moment(), 'days') < 0) {
+			return true;
+		}
+		return false;
+	}
+
+	handleApply(event, picker) {
+		const startAt = picker.startDate.format('Y/MM/DD');
+    const endAt = picker.endDate.format('Y/MM/DD');
+
+    this.dateRef.current.value = startAt + ' to ' + endAt;
+
+    this.setState({
+      startAt,
+      endAt
+    })
+
+    console.log(this.state)
+	}
+
+  selectGuests(event) {
+    this.setState({
+			guests: parseInt(event.target.value)
+		});
+  }
+
+  reserve() {
+    console.log(this.state)
   }
 
 	render() {
@@ -43,20 +73,25 @@ class Booking extends Component {
 				<hr></hr>
 				<div className='form-group'>
 					<label htmlFor='dates'>Dates</label>
-					<DateRangePicker isInvalidDate={this.checkInvalidDates} opens='left' containerStyles={{ display: 'block' }}>
-						<input id='dates' type='text' className='form-control' />
+					<DateRangePicker
+						isInvalidDate={this.checkInvalidDates}
+						opens='left'
+            onApply={this.handleApply}
+						containerStyles={{ display: 'block' }}>
+						<input ref={this.dateRef} id='dates' type='text' className='form-control' />
 					</DateRangePicker>
 				</div>
 				<div className='form-group'>
 					<label htmlFor='guests'>Guests</label>
 					<input
+            onChange={(event) => {this.selectGuests(event)}}
 						type='number'
 						className='form-control'
 						id='guests'
 						aria-describedby='emailHelp'
 						placeholder=''></input>
 				</div>
-				<button className='btn btn-bwm btn-confirm btn-block'>Reserve place now</button>
+				<button onClick={() => this.reserve()} className='btn btn-bwm btn-confirm btn-block'>Reserve place now</button>
 				<hr></hr>
 				<p className='booking-note-title'>People are interested into this house</p>
 				<p className='booking-note-text'>More than 500 people checked this rental in last month.</p>
