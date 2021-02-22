@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
+import * as moment from 'moment';
 import { getRangeOfDates } from '../../helpers';
 
 class Booking extends Component {
 	constructor() {
 		super();
 		this.bookedOutDates = [];
+    this.checkInvalidDates = this.checkInvalidDates.bind(this)
 	}
 
 	componentDidMount() {
@@ -20,10 +22,16 @@ class Booking extends Component {
 				const dateRange = getRangeOfDates(booking.startAt, booking.endAt, 'Y/MM/DD');
         debugger
         this.bookedOutDates.push(...dateRange);
-        console.log(this.bookedOutDates);
 			});
 		}
 	}
+
+  checkInvalidDates(date) {
+    if(this.bookedOutDates.includes(date.format('Y/MM/DD')) || date.diff(moment (), 'days') < 0) {
+      return true
+    }
+    return false;
+  }
 
 	render() {
 		const { rental } = this.props;
@@ -35,7 +43,7 @@ class Booking extends Component {
 				<hr></hr>
 				<div className='form-group'>
 					<label htmlFor='dates'>Dates</label>
-					<DateRangePicker opens='left' containerStyles={{ display: 'block' }}>
+					<DateRangePicker isInvalidDate={this.checkInvalidDates} opens='left' containerStyles={{ display: 'block' }}>
 						<input id='dates' type='text' className='form-control' />
 					</DateRangePicker>
 				</div>
