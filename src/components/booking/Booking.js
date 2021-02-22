@@ -10,15 +10,16 @@ class Booking extends Component {
 		this.bookedOutDates = [];
     this.dateRef = React.createRef();
     this.state = {
-      proposedBooking: {
-        startAt: '',
-        endAt: '',
-        guests: 0,
-      },
-      modal: {
-        open: false
-      }    
-    }
+			proposedBooking: {
+				startAt: '',
+				endAt: '',
+				guests: 0,
+				rental: {}
+			},
+			modal: {
+				open: false
+			}
+		};
 		this.checkInvalidDates = this.checkInvalidDates.bind(this);
     this.handleApply = this.handleApply.bind(this);
     this.cancelConfirmation = this.cancelConfirmation.bind(this);
@@ -53,14 +54,20 @@ class Booking extends Component {
     this.dateRef.current.value = startAt + ' to ' + endAt;
 
     this.setState({
-      proposedBooking: {startAt,
-      endAt}
-    })
+			proposedBooking: {
+				...this.state.proposedBooking,
+				startAt,
+				endAt
+			}
+		});
 	}
 
   selectGuests(event) {
     this.setState({
-			proposedBooking: {guests: parseInt(event.target.value)}
+			proposedBooking: {
+				...this.state.proposedBooking,
+				guests: parseInt(event.target.value)
+			}
 		});
   }
 
@@ -73,16 +80,27 @@ class Booking extends Component {
   }
 
   confirmProposedData() {
+    const { startAt, endAt } = this.state.proposedBooking;
+		const days = getRangeOfDates(startAt, endAt).length - 1;
+		const { rental } = this.props;
+
     this.setState({
-      modal: {
-        open: true
-      }
-    })
+			proposedBooking: {
+				...this.state.proposedBooking,
+				days,
+				totalPrice: days * rental.dailyRate,
+        rental
+			},
+			modal: {
+				open: true
+			}
+		});
     console.log(this.state)
   }
 
 	render() {
 		const { rental } = this.props;
+    const {startAt, endAt, guests} = this.state.proposedBooking;
 		return (
 			<div className='booking'>
 				<h3 className='booking-price'>
@@ -94,7 +112,7 @@ class Booking extends Component {
 					<DateRangePicker
 						isInvalidDate={this.checkInvalidDates}
 						opens='left'
-            onApply={this.handleApply}
+						onApply={this.handleApply}
 						containerStyles={{ display: 'block' }}>
 						<input ref={this.dateRef} id='dates' type='text' className='form-control' />
 					</DateRangePicker>
@@ -102,18 +120,29 @@ class Booking extends Component {
 				<div className='form-group'>
 					<label htmlFor='guests'>Guests</label>
 					<input
-            onChange={(event) => {this.selectGuests(event)}}
+						onChange={(event) => {
+							this.selectGuests(event);
+						}}
 						type='number'
 						className='form-control'
 						id='guests'
 						aria-describedby='emailHelp'
 						placeholder=''></input>
 				</div>
-				<button onClick={() => this.confirmProposedData()} className='btn btn-bwm btn-confirm btn-block'>Reserve place now</button>
+				<button
+          disabled={!startAt ||!endAt ||!guests}
+					onClick={() => this.confirmProposedData()}
+					className='btn btn-bwm btn-confirm btn-block'>
+					Reserve place now
+				</button>
 				<hr></hr>
 				<p className='booking-note-title'>People are interested into this house</p>
 				<p className='booking-note-text'>More than 500 people checked this rental in last month.</p>
-        <BookingModal open={this.state.modal.open} closeModal={this.cancelConfirmation} />
+				<BookingModal
+					open={this.state.modal.open}
+					closeModal={this.cancelConfirmation}
+					booking={this.state.proposedBooking}
+				/>
 			</div>
 		);
 	}
